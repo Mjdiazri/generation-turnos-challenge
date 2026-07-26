@@ -54,7 +54,7 @@ const btnLlamar = document.getElementById('btnLlamar');
 
 function mostrarFila(){
 
-    //turnos= [];
+    turnos= [];
 
     turnos.forEach(element => {
         liTurnos = document.createElement("li");  
@@ -88,12 +88,17 @@ function mostrarFila(){
         pNombre.classList.add("turno__nombre");
         pTramite.classList.add("turno__tramite");
         estadoSpan.classList.add("turno__estado");
-
     });   
 }
 
-function llamarSiguiente(){
-    
-}
+btnLlamar.addEventListener('click', function (){
+  let pendiente = turnos.find((turnos) => turnos.atendido === false);
+  visorNumero.textContent = pendiente.codigo;
+  visorModulo.textContent = `Pase al ${pendiente.modulo}` ;
+  pendiente.atendido = true;
+  mostrarFila();
+  console.log(turnos)  
+});
 
-mostrarFila();
+
+
