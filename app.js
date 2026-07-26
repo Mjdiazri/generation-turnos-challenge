@@ -52,9 +52,9 @@ const turnosFaltantes = document.getElementById('turnos-esperando');
 const listaVacia = document.getElementById('mensajeVacio');
 const btnLlamar = document.getElementById('btnLlamar');
 
+//Funciones
 function mostrarFila(){
-
-    turnos= [];
+    //turnos= [];
 
     turnos.forEach(element => {
         liTurnos = document.createElement("li");  
@@ -67,11 +67,13 @@ function mostrarFila(){
         codigoSpan.textContent=element.codigo; 
         pNombre.textContent=element.nombre; 
         pTramite.textContent=element.tramite; 
+        
         if (element.atendido === true){
             estadoSpan.textContent= "Atendido";
+            liTurnos.classList.add('turno--atendido'); 
         } else{
             estadoSpan.textContent="EN ESPERA";
-        }   
+        }  
         
 
         divTurno.appendChild(pNombre);
@@ -91,14 +93,16 @@ function mostrarFila(){
     });   
 }
 
-btnLlamar.addEventListener('click', function (){
+
+function llamarSiguiente(){
   let pendiente = turnos.find((turnos) => turnos.atendido === false);
+  pendiente.atendido = true;
+  console.log(pendiente.atendido) 
   visorNumero.textContent = pendiente.codigo;
   visorModulo.textContent = `Pase al ${pendiente.modulo}` ;
-  pendiente.atendido = true;
+  
   mostrarFila();
-  console.log(turnos)  
-});
-
-
+  
+};
+btnLlamar.addEventListener("click", llamarSiguiente);
 
