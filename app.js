@@ -57,20 +57,27 @@ function mostrarFila(){
     //turnos= [];
 
     turnos.forEach(element => {
+        //Crear elementos
         liTurnos = document.createElement("li");  
         codigoSpan = document.createElement("span");  
         divTurno = document.createElement("div");  
         pNombre = document.createElement("p");  
         pTramite = document.createElement("p"); 
         estadoSpan = document.createElement("span");  
+        btnCancelar = document.createElement("button");
        
+        //Poner texto
         codigoSpan.textContent=element.codigo; 
         pNombre.textContent=element.nombre; 
         pTramite.textContent=element.tramite; 
-
+        btnCancelar.textContent="Cancelar";
+        
+        //Agregar identificador
         liTurnos.dataset.idTurno = element.codigo;
         liTurnos.dataset.idModulo = element.modulo;
+        btnCancelar.dataset.botonCancelar = "cancelar"
         
+        //Poner la clase y cambiar texto
         if (element.atendido === true){
             estadoSpan.textContent= "Atendido";
             liTurnos.classList.add('turno--atendido'); 
@@ -78,22 +85,25 @@ function mostrarFila(){
             estadoSpan.textContent="EN ESPERA";
         }  
         
-
+        //Definir la estuctura
         divTurno.appendChild(pNombre);
         divTurno.appendChild(pTramite);
         liTurnos.appendChild(codigoSpan);
         liTurnos.appendChild(divTurno);
         liTurnos.appendChild(estadoSpan);
+        liTurnos.appendChild(btnCancelar);
 
         listaTurnos.appendChild(liTurnos);     
         
+        //Agregar clases
         liTurnos.classList.add("turno")
         codigoSpan.classList.add("turno__codigo");
         divTurno.classList.add("turno__datos");
         pNombre.classList.add("turno__nombre");
         pTramite.classList.add("turno__tramite");
         estadoSpan.classList.add("turno__estado");
-        
+        btnCancelar.classList.add("turno__cancelar")
+
         actualizarContador();
     });   
 }
@@ -105,7 +115,6 @@ function llamarSiguiente(){
   console.log(pendiente.atendido) 
   visorNumero.textContent = pendiente.codigo;
   visorModulo.textContent = `Pase al ${pendiente.modulo}` ;
-  
   mostrarFila();  
 };
 
