@@ -1,4 +1,4 @@
-const turnos = [
+let turnos = [
    {
     "codigo": "A-04",
     "nombre": "Carlos Mendoza",
@@ -119,7 +119,23 @@ function llamarSiguiente(){
 };
 
 btnLlamar.addEventListener("click", llamarSiguiente);
-
+listaTurnos.addEventListener("click", function(elemento){
+  if(elemento.target.dataset.botonCancelar === 'cancelar'){
+    let li = elemento.target.closest("li");
+    let turnoCancelar = li.dataset.idTurno;
+    console.log(turnoCancelar);
+    
+    turnos = turnos.filter(function(t){
+      if(t =! turnoCancelar){
+        return true
+      } else {
+        return false;
+      }
+    }) 
+    li.remove()
+    mostrarFila();
+  }  
+})
 
 
 function actualizarContador(){
