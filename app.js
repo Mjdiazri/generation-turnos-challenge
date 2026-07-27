@@ -57,7 +57,7 @@ mostrarFila();
 //Funciones
 function mostrarFila(){
     //turnos= [];
-    listaTurnos.innerHTML = "";
+    listaTurnos.textContent = "";
 
     turnos.forEach(element => {
         //Crear elementos
