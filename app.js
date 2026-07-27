@@ -67,6 +67,9 @@ function mostrarFila(){
         codigoSpan.textContent=element.codigo; 
         pNombre.textContent=element.nombre; 
         pTramite.textContent=element.tramite; 
+
+        liTurnos.dataset.idTurno = element.codigo;
+        liTurnos.dataset.idModulo = element.modulo;
         
         if (element.atendido === true){
             estadoSpan.textContent= "Atendido";
