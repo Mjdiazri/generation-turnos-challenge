@@ -25,7 +25,7 @@ const turnos = [
     "nombre": "Ana Lucía Domínguez",
     "tramite": "Asignación de Citas Especialistas",
     "modulo": "Módulo 3",
-    "atendido": true
+    "atendido": false
   },
   {
     "codigo": "R-44",
@@ -90,6 +90,8 @@ function mostrarFila(){
         pNombre.classList.add("turno__nombre");
         pTramite.classList.add("turno__tramite");
         estadoSpan.classList.add("turno__estado");
+        
+        actualizarContador();
     });   
 }
 
@@ -101,8 +103,18 @@ function llamarSiguiente(){
   visorNumero.textContent = pendiente.codigo;
   visorModulo.textContent = `Pase al ${pendiente.modulo}` ;
   
-  mostrarFila();
-  
+  mostrarFila();  
 };
+
 btnLlamar.addEventListener("click", llamarSiguiente);
+
+
+
+function actualizarContador(){
+  let faltantes = document.querySelectorAll(".turno:not(.turno--atendido)");
+  let total = faltantes.length;
+  turnosFaltantes.textContent= total;
+}
+
+mostrarFila()
 
