@@ -52,19 +52,22 @@ const turnosFaltantes = document.getElementById('turnos-esperando');
 const listaVacia = document.getElementById('mensajeVacio');
 const btnLlamar = document.getElementById('btnLlamar');
 
+mostrarFila();
+
 //Funciones
 function mostrarFila(){
     //turnos= [];
+    listaTurnos.innerHTML = "";
 
     turnos.forEach(element => {
         //Crear elementos
-        liTurnos = document.createElement("li");  
-        codigoSpan = document.createElement("span");  
-        divTurno = document.createElement("div");  
-        pNombre = document.createElement("p");  
-        pTramite = document.createElement("p"); 
-        estadoSpan = document.createElement("span");  
-        btnCancelar = document.createElement("button");
+        let liTurnos = document.createElement("li");  
+        let codigoSpan = document.createElement("span");  
+        let divTurno = document.createElement("div");  
+        let pNombre = document.createElement("p");  
+        let pTramite = document.createElement("p"); 
+        let estadoSpan = document.createElement("span");  
+        let btnCancelar = document.createElement("button");
        
         //Poner texto
         codigoSpan.textContent=element.codigo; 
@@ -126,7 +129,7 @@ listaTurnos.addEventListener("click", function(elemento){
     console.log(turnoCancelar);
     
     turnos = turnos.filter(function(t){
-      if(t =! turnoCancelar){
+      if(t.codigo != turnoCancelar){
         return true
       } else {
         return false;
@@ -144,5 +147,35 @@ function actualizarContador(){
   turnosFaltantes.textContent= total;
 }
 
-mostrarFila()
+buscadorTurno.addEventListener("keyup",aplicarBusqueda)
+
+function aplicarBusqueda(){
+  let palabraBuscada = buscadorTurno.value.toLowerCase(); 
+  console.log(palabraBuscada);
+  
+  let coincidencias = turnos.filter(function(elemento){
+    let codigoMinusculas = elemento.codigo.toLowerCase();
+    let nombreMinusculas = elemento.nombre.toLowerCase();
+    let tramiteMinusculas = elemento.tramite.toLowerCase();
+    
+    return codigoMinusculas.includes(palabraBuscada) || nombreMinusculas.includes(palabraBuscada) || tramiteMinusculas.includes(palabraBuscada)   
+  })
+
+  let filasMostradas = listaTurnos.querySelectorAll('.turno');
+
+  filasMostradas.forEach(function(li){
+    let idLi = li.dataset.idTurno;
+    let coincideOk = coincidencias.some(function(turnoFilter){
+      return turnoFilter.codigo === idLi;
+    });
+
+    if(coincideOk){
+      li.classList.remove('turno--oculto')
+    } else {
+      li.classList.add('turno--oculto')
+    }
+  })
+}
+
+
 
